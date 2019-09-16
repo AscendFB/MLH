@@ -1,4 +1,5 @@
 from Farmware import *
+from farmware_tools import get_config_value
 
 # inverses boolean expr basing on variable
 def invb(inverse, expr):
@@ -24,17 +25,28 @@ class MLH(Farmware):
         self.big_rain=20        #20mm is a big rain (cancells watering today, tomorrow and day after tomorrow)
 
 
-        super(MLH,self).load_config()
-        self.get_arg('action'       , "test", str)
-        self.get_arg('pointname'    , '*', str)
-        self.get_arg('default_z'    , 0, int)
-        self.get_arg('filter_meta'  , None, list)
-        self.get_arg('save_meta'    , None,list)
-        self.get_arg('init'         , None, str)
-        self.get_arg('before'       , None, str)
-        self.get_arg('after'        , 'Water [MLH]', str)
-        self.get_arg('end'          , None, str)
-
+       # super(MLH,self).load_config()
+       # self.get_arg('action'       , "test", str)
+       # self.get_arg('pointname'    , '*', str)
+       # self.get_arg('default_z'    , 0, int)
+       # self.get_arg('filter_meta'  , None, list)
+       # self.get_arg('save_meta'    , None,list)
+       # self.get_arg('init'         , None, str)
+       # self.get_arg('before'       , None, str)
+       # self.get_arg('after'        , 'Water [MLH]', str)
+       # self.get_arg('end'          , None, str)
+        
+        self.farmware_name= 'MLH'
+        self.args[action] = get_config_value(self.farmware_name, config_name='action', value_type=str)
+        self.args[pointname] = get_config_value(self.farmware_name, config_name='pointname', value_type=str)
+        self.args[default_z] = get_config_value(self.farmware_name, config_name='default_z', value_type=int)
+        self.args[filter_meta] = get_config_value(self.farmware_name, config_name='filter_meta' , value_type=list)
+        self.args[save_meta] = get_config_value(self.farmware_name, config_name='save_meta', value_type=list)
+        self.args[init] = get_config_value(self.farmware_name, config_name='init', value_type=str)
+        self.args[before] = get_config_value(self.farmware_name, config_name='before', value_type=str)
+        self.args[after] = get_config_value(self.farmware_name, config_name='after', value_type=str)
+        self.args[end] = get_config_value(self.farmware_name, config_name='end', value_type=str)
+      
         self.args['pointname']=self.args['pointname'].lower().split(',')
         self.args['pointname'] = [x.strip(' ') for x in self.args['pointname']]
 
